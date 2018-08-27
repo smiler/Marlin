@@ -176,6 +176,7 @@
  * M221 - Set Flow Percentage: "M221 S<percent>"
  * M226 - Wait until a pin is in a given state: "M226 P<pin> S<state>"
  * M240 - Trigger a camera to take a photograph. (Requires CHDK or PHOTOGRAPH_PIN)
+ * M242 - Makers Tool Works LED support (Requires MTWLED)
  * M250 - Set LCD contrast: "M250 C<contrast>" (0-63). (Requires LCD support)
  * M260 - i2c Send Data (Requires EXPERIMENTAL_I2CBUS)
  * M261 - i2c Request Data (Requires EXPERIMENTAL_I2CBUS)
@@ -274,6 +275,11 @@
 
 #if ENABLED(AUTO_POWER_CONTROL)
   #include "power.h"
+#endif
+
+#ifdef MTWLED
+  #include "mtwled.h"
+  extern int MTWLED_control;
 #endif
 
 #if ABL_PLANAR
@@ -9939,6 +9945,40 @@ inline void gcode_M226() {
   } // parser.seen('P')
 }
 
+/**
+* M242: control for the Makers Tool Works LED controller. See mtwled.h for detail
+*/
+#ifdef MTWLED
+    inline void gcode_M242() {
+        patterncode pattern;
+        pattern.part[0] = 0;
+        long timer = 0;
+        int control = MTWLED_control;
+        pattern.part[1] = 0;
+        pattern.part[2] = 0;
+        pattern.part[3] = 0;
+        if (parser.seen('P')) {
+          pattern.part[0] = parser.value_byte();
+        }
+        if (parser.seen('T')) {
+          timer = (long)parser.value_byte();
+        }
+        if (parser.seen('C')) {
+          control = parser.value_byte();
+        }
+        if (parser.seen('R')) {
+          pattern.part[1] = parser.value_byte();
+        }
+        if (parser.seen('E')) {
+          pattern.part[2] = parser.value_byte();
+        }
+        if (parser.seen('B')) {
+          pattern.part[3] = parser.value_byte();
+        }
+        MTWLEDUpdate(pattern,timer,control);
+      }
+#endif
+
 #if ENABLED(EXPERIMENTAL_I2CBUS)
 
   /**
@@ -15051,6 +15091,10 @@ void setup() {
 
   setup_powerhold();
 
+  #ifdef MTWLED
+    MTWLEDSetup();
+  #endif
+
   #if HAS_STEPPER_RESET
     disableStepperDrivers();
   #endif
@@ -15291,6 +15335,10 @@ void setup() {
  *  - Call LCD update
  */
 void loop() {
+
+  #ifdef MTWLED
+    MTWLEDLogic();
+  #endif
 
   #if ENABLED(SDSUPPORT)
 
