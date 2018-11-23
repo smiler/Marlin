@@ -86,21 +86,21 @@
 #define Z_DIR_PIN          47
 #define Z_ENABLE_PIN       27
 
-// #define E0_STEP_PIN        34
-// #define E0_DIR_PIN         43
-// #define E0_ENABLE_PIN      26
+#define E0_STEP_PIN        34
+#define E0_DIR_PIN         43
+#define E0_ENABLE_PIN      26
 
-// #define E1_STEP_PIN        33
-// #define E1_DIR_PIN         42
-// #define E1_ENABLE_PIN      25
+#define E1_STEP_PIN        33
+#define E1_DIR_PIN         42
+#define E1_ENABLE_PIN      25
 
-#define E0_STEP_PIN        33
-#define E0_DIR_PIN         42
-#define E0_ENABLE_PIN      25
+// #define E0_STEP_PIN        33
+// #define E0_DIR_PIN         42
+// #define E0_ENABLE_PIN      25
 
-#define E1_STEP_PIN        34
-#define E1_DIR_PIN         43
-#define E1_ENABLE_PIN      26
+// #define E1_STEP_PIN        34
+// #define E1_DIR_PIN         43
+// #define E1_ENABLE_PIN      26
 
 // Microstepping pins - Mapping not from fastio.h (?)
 #define X_MS1_PIN          40
