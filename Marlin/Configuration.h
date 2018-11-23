@@ -379,24 +379,14 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // E3Dv6 MTW_Create
-  #define DEFAULT_Kp 18.82
-  #define DEFAULT_Ki 1.47
-  #define DEFAULT_Kd 60.12
+  //#define DEFAULT_Kp 18.82
+  //#define DEFAULT_Ki 1.47
+  //#define DEFAULT_Kd 60.12
 
-  // Ultimaker
-  //#define DEFAULT_Kp 22.2
-  //#define DEFAULT_Ki 1.08
-  //#define DEFAULT_Kd 114
-
-  // MakerGear
-  //#define DEFAULT_Kp 7.0
-  //#define DEFAULT_Ki 0.1
-  //#define DEFAULT_Kd 12
-
-  // Mendel Parts V9 on 12V
-  //#define DEFAULT_Kp 63.0
-  //#define DEFAULT_Ki 2.25
-  //#define DEFAULT_Kd 440
+  // Tuned with M303 E0 S200 C8
+  #define DEFAULT_Kp 27.70
+  #define DEFAULT_Ki 3.35
+  #define DEFAULT_Kd 57.30
 
 #endif // PIDTEMP
 
@@ -441,9 +431,14 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
-  #define DEFAULT_bedKp 97.1
-  #define DEFAULT_bedKi 1.41
-  #define DEFAULT_bedKd 1675.16
+  //#define DEFAULT_bedKp 97.1
+  //#define DEFAULT_bedKi 1.41
+  //#define DEFAULT_bedKd 1675.16
+
+  // MTW heater, autotuned
+  #define DEFAULT_bedKp 362.05
+  #define DEFAULT_bedKi 32.26
+  #define DEFAULT_bedKd 1015.82
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
